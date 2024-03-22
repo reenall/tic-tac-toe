@@ -1,0 +1,76 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  height: 1vh;
+  background-image: url(/img/main-background.jpg);
+  background-size: full;
+  background-position: center;
+  font-family: "Slackside One", cursive;
+}
+
+/* ----- Board ----- */
+.main-container {
+  background-image: url(/img/paper-background2.png);
+}
+
+.main-container {
+  @apply flex flex-wrap w-[450px] h-[600px] mx-auto items-center bg-cover bg-center
+}
+
+.board-container {
+  @apply flex flex-wrap justify-center
+}
+
+.status {
+  @apply  pt-5 pb-7 text-5xl text-slate-400
+}
+
+.board {
+  background-image: url(/img/grid2.png);
+  background-position: center;
+  background-size: cover;
+}
+
+.board {
+  @apply flex flex-wrap w-96 h-[360px]
+}
+
+.square {
+  @apply w-1/3 h-[120px] p-5  cursor-pointer
+}
+
+.square p {
+  @apply font-semibold text-7xl -translate-y-3 text-amber-400
+}
+/* ----- END Board ----- */
+
+
+/* ----- Game ----- */
+.game {
+  @apply relative flex flex-wrap my-20 px-5
+}
+
+.game-board {
+  @apply mx-auto
+}
+
+.game-info {
+  @apply py-10 px-8 text-3xl
+   md:mr-auto md:py-20 
+   xl:absolute xl:left-[7%] 2xl:left-[10%]
+}
+
+.game-info li {
+  @apply hover:bg-slate-50
+}
+
+.game-info h2 {
+  @apply bg-yellow-400 font-bold text-5xl mb-3
+}
+/* ----- END Game ----- */
