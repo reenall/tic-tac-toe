@@ -6,7 +6,7 @@ function Square({ value, onSquareClick, className }) {
   
   return (
     <button className="square" onClick={onSquareClick}>
-      <p className={`w-max mx-auto ${className ?? "text-amber-400"}`}>
+      <p className={`w-max mx-auto ${className ?? "text-red-400"}`}>
         {value}
       </p>
     </button>
@@ -25,7 +25,7 @@ function Board({xIsNext, squares, onPlay}) {
   }
 
   useEffect(() => {
-    setWinner(calculateWinner(squares))
+    if(calculateWinner(squares)) return setWinner(calculateWinner(squares))
   }, [squares])
 
   let status = ''
