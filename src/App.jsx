@@ -1,12 +1,12 @@
 /* eslint-disable react/prop-types */
 /* eslint-disable no-unused-vars */
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 
 function Square({ value, onSquareClick, className }) {
   
   return (
     <button className="square" onClick={onSquareClick}>
-      <p className={`w-max mx-auto ${className ? className : "text-amber-400"}`}>
+      <p className={`w-max mx-auto ${className ?? "text-amber-400"}`}>
         {value}
       </p>
     </button>
@@ -14,6 +14,7 @@ function Square({ value, onSquareClick, className }) {
 }
 
 function Board({xIsNext, squares, onPlay}) {
+  const [winner, setWinner] = useState(null)
   function handleClick(i){
     if(squares[i] || calculateWinner(squares)) return;
 
@@ -23,7 +24,10 @@ function Board({xIsNext, squares, onPlay}) {
     onPlay(nextSquares)
   }
 
-  const winner = calculateWinner(squares);
+  useEffect(() => {
+    setWinner(calculateWinner(squares))
+  }, [squares])
+
   let status = ''
 
   if(winner) {
