@@ -6,7 +6,7 @@ function Square({ value, onSquareClick, className }) {
   
   return (
     <button className="square" onClick={onSquareClick}>
-      <p className={`w-max mx-auto ${className ?? "text-amber-400"}`}>
+      <p className={`w-max mx-auto ${className ? className : "text-amber-400"}`}>
         {value}
       </p>
     </button>
