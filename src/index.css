@@ -79,7 +79,7 @@ body {
 }
 
 .square p {
-  @apply font-semibold text-[68px] -translate-y-3 text-amber-400 
+  @apply font-semibold text-[68px] -translate-y-3
   sm:text-7xl
 }
 /* ----- END Board ----- */

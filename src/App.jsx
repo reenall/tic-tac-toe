@@ -2,9 +2,15 @@
 /* eslint-disable no-unused-vars */
 import { useState } from 'react'
 
-function Square({ value, onSquareClick }) {
+function Square({ value, onSquareClick, className }) {
   
-  return <button className='square' onClick={onSquareClick}><p>{value}</p></button>
+  return (
+    <button className="square" onClick={onSquareClick}>
+      <p className={`w-max mx-auto ${className ?? "text-amber-400"}`}>
+        {value}
+      </p>
+    </button>
+  )
 }
 
 function Board({xIsNext, squares, onPlay}) {
@@ -19,21 +25,34 @@ function Board({xIsNext, squares, onPlay}) {
 
   const winner = calculateWinner(squares);
   let status = ''
+
   if(winner) {
-    status = '🥳 Winner: ' + winner + ' 🎉'
+    status = '🥳 Winner: ' + winner.winnerPlayer + ' 🎉'
   } else if(!calculateWinner(squares) && !squares.includes(null)){
     status = '🤝 DRAW 🤝'
   } else {
     status = 'Player: ' + (xIsNext ? 'X' : 'O')
   }
-  console.log(status)
 
   return (
     <div className='main-container'>
       <div className='board-container'>
         <div className='status'>{status}</div>
         <div className='board'>        
-          <Square value={squares[0]} onSquareClick={() => handleClick(0)}/>
+          {Array.from({length: 9}, (_, i) => i).map((i) => (
+            winner && winner.winnerSquares.includes(i) 
+              ? (
+                <Square 
+                  key={i} 
+                  value={squares[i]} 
+                  onSquareClick={() => handleClick(i)} 
+                  className={'animate-bounce bg-gradient-to-r from-yellow-400 via-cyan-400 to-green-500 bg-clip-text text-transparent'}/>
+              ) 
+              : (
+                <Square key={i} value={squares[i]} onSquareClick={() => handleClick(i)}/>
+              )
+          ))}
+          {/* <Square value={squares[0]} onSquareClick={() => handleClick(0)}/>
           <Square value={squares[1]} onSquareClick={() => handleClick(1)}/>
           <Square value={squares[2]} onSquareClick={() => handleClick(2)}/>
           <Square value={squares[3]} onSquareClick={() => handleClick(3)}/>
@@ -41,7 +60,7 @@ function Board({xIsNext, squares, onPlay}) {
           <Square value={squares[5]} onSquareClick={() => handleClick(5)}/>
           <Square value={squares[6]} onSquareClick={() => handleClick(6)}/>
           <Square value={squares[7]} onSquareClick={() => handleClick(7)}/>
-          <Square value={squares[8]} onSquareClick={() => handleClick(8)}/>
+          <Square value={squares[8]} onSquareClick={() => handleClick(8)}/> */}
         </div>
       </div>
     </div>
@@ -109,7 +128,10 @@ function calculateWinner(squares){
     const [a, b, c] = rules[i]
 
     if(squares[a] && squares[a] === squares[b] && squares[a] === squares[c]){
-      return squares[a]
+      const winnerSquares = [a, b, c]
+      const winnerPlayer = squares[a]
+      return {winnerSquares, winnerPlayer}
+      // return squares[a]
     }
   }
 
